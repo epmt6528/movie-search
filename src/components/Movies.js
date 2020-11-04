@@ -8,9 +8,9 @@ const getStyles = makeStyles(theme => ({
   root: {
     margin: '5em 3em',
     'display': 'flex',
-    'flex-direction': 'column',
-    'justify-content': 'center',
-    'align-items': 'center'
+    'flexDirection': 'column',
+    'justifyContent': 'center',
+    'alignItems': 'center'
   }
 }))
 
@@ -25,13 +25,13 @@ const Movies = props => {
         {
           props.searchResults.map(
             movie => {
-              const {id, original_title, release_date, popularity, overview, poster_path} = movie
+              const {id, original_title, original_name, release_date, popularity, overview, poster_path} = movie
               return (
                 <>
                   <MovieCard 
                     key={id}
                     id={id}
-                    title={original_title}
+                    title={original_title || original_name}
                     release_date={release_date}
                     popularity={popularity}
                     overview={overview}

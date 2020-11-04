@@ -51,15 +51,15 @@ const useStyles = makeStyles((theme) => ({
   },
   tabMenu: {
     'display': 'flex',
-    'justify-content': 'space-around'
+    'justifyContent': 'space-around'
   },
   dropdown: {
     'width': '200px',
   },
   tabPanel:{
     'display': 'flex',
-    'flex-direction': 'column',
-    'align-items': 'center',
+    'flexDirection': 'column',
+    'alignItems': 'center',
     'padding': '30px 0'
   }
 }));
@@ -92,8 +92,9 @@ const TabContainer = props => {
             margin='normal'
             label="Search Type"
             variant="outlined"
-            onChange={e => {
-                props.onCategoryChange(e.target.value)
+            defaultValue="now_playing"
+            onChange={async e => {
+                await props.onMovieCategoryChange(e.target.value)
                 props.fetchMovies(e)
               }
             }
@@ -104,17 +105,34 @@ const TabContainer = props => {
           <MenuItem key='4' value='upcoming'>upcoming</MenuItem>
         </TextField>
 
-        { props.isLoading ? <Loading /> : <Movies searchResults={props.searchResults}/>}
-
-
+        <Movies searchResults={props.movies}/>
       </TabPanel>
 
       <TabPanel value={value} index={1} className={classes.TabPanel}>
-        { props.isLoading ? <Loading /> : <Movies searchResults={props.searchResults}/> }
+        <Movies searchResults={props.searchResults}/>
       </TabPanel>
 
       <TabPanel value={value} index={2} className={classes.TabPanel}>
-        { props.isLoading ? <Loading /> : <Movies searchResults={props.searchResults}/>}
+        <TextField
+          select
+          className={classes.dropdown}
+          color="default"
+          margin='normal'
+          label="Search Type"
+          variant="outlined"
+          defaultValue="airing_today"
+          onChange={async e => {
+              await props.onTvCategoryChange(e.target.value)
+              props.fetchTv(e)
+            }
+          }
+        >
+        <MenuItem key='1' value='airing_today'>airing_today</MenuItem>
+        <MenuItem key='2' value='on_the_air'>on_the_air</MenuItem>
+        <MenuItem key='3' value='popular'>popular</MenuItem>
+        <MenuItem key='4' value='top_rated'>top_rated</MenuItem>
+      </TextField>
+       <Movies searchResults={props.tv}/>
       </TabPanel>
     </div>
   );

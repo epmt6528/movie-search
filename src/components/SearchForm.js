@@ -10,8 +10,8 @@ const useStyles = makeStyles((theme) => ({
     'margin': '100px 0',
     'width': '100%',
     'display': 'flex',
-    'justify-content': 'center',
-    'align-items': 'center'
+    'justifyContent': 'center',
+    'alignItems': 'center'
   },
   searchInput: {
     'width': '500px',
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   dropdown: {
     'width': '200px',
     'margin': '5px',
-    'text-align': 'center'
+    'textAlign': 'center'
   },
 }));
 
@@ -39,7 +39,7 @@ const SearchForm = props =>{
         onChange={e => props.onInputChange(e.target.value)}
         InputLabelProps={{
           required: true,
-          color: 'white',
+          color: 'primary',
           shrink: true
         }}
       /> 
@@ -55,7 +55,7 @@ const SearchForm = props =>{
       >
         <MenuItem key='1' value='movie'>movie</MenuItem>
         <MenuItem key='2' value='multi'>multi</MenuItem>
-        <MenuItem key='3' value='TV'>TV</MenuItem>
+        <MenuItem key='3' value='tv'>tv</MenuItem>
       </TextField>
       
       <Button 

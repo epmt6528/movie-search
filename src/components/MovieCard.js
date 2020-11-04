@@ -14,8 +14,8 @@ const getStyles = makeStyles(theme => ({
     'height': '500px',
     'margin': '20px',
     'display': 'flex',
-    'justify-content': 'center',
-    'align-items': 'center'
+    'justifyContent': 'center',
+    'alignItems': 'center'
   },
   media: {
     'height': '0',
@@ -25,9 +25,9 @@ const getStyles = makeStyles(theme => ({
   content: {
     'width': '75%',
     'display': 'flex',
-    'flex-direction': 'column',
-    'justify-content': 'center',
-    'align-items': 'center'
+    'flexDirection': 'column',
+    'justifyContent': 'center',
+    'alignItems': 'center'
   },
   title: {
     'padding': '0'
