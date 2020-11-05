@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import SearchForm from './components/SearchForm';
 import Title from './components/Title';
-import TabContainer from './components/TabContainer';
+import TabContainer from './containers/TabContainer';
 import {searchMovies, getMovies, getTv} from './services/api';
-import { findByLabelText } from '@testing-library/react';
 
 class App extends Component{
   state = {
@@ -15,6 +14,11 @@ class App extends Component{
     movieCategory: 'now_playing',
     tvCategory: 'airing_today',
     isLoading: false
+  }
+
+  componentDidMount() {
+    this.fetchMovies()
+    this.fetchTv()
   }
 
   // Search function
@@ -60,7 +64,7 @@ class App extends Component{
   // Fetching movies function
   fetchMovies = e => {
     const {movieCategory} = this.state
-    e.preventDefault()
+    // e.preventDefault()
 
     getMovies(movieCategory).then( 
       movies => {
@@ -86,18 +90,17 @@ class App extends Component{
   // Fetching tv function
   fetchTv = e => {
     const {tvCategory} = this.state
-    e.preventDefault()
 
     getTv(tvCategory).then( 
       tv => {
-      this.setState({
-        tv,
-        isLoading: false
-      })
-    },
-    error => {
-      alert('Error', `Something went wrong! ${error}`)
-    }
+        this.setState({
+          tv,
+          isLoading: false
+        })
+      },
+      error => {
+        alert('Error', `Something went wrong! ${error}`)
+      }
     )
   }
 
@@ -124,10 +127,12 @@ class App extends Component{
           onInputChange={this.handleInputChange} 
           onCategoryChange={this.handleCategoryChange} 
           onSubmit={this.searchMovies}/>
-        <TabContainer 
-          searchResults={this.state.searchResults} 
+        <TabContainer
+          searchResults={this.state.searchResults}
           movies={this.state.movies}
-          tv={this.state.tv} 
+          tv={this.state.tv}
+          movieCategory={this.state.movieCategory}
+          tvCategory={this.state.tvCategory}
           isLoading={this.state.isLoading}
           onMovieCategoryChange={this.handleMovieCategoryChange} 
           onTvCategoryChange={this.handleTvCategoryChange} 
