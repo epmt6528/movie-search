@@ -100,6 +100,7 @@ const TabContainer = props => {
 
       <TabPanel value={value} index={1} className={classes.TabPanel}>
         <SearchContainer 
+          movieName={props.movieName}
           searchResults={props.searchResults} />
       </TabPanel>
 

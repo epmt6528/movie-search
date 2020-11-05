@@ -13,8 +13,11 @@ export const searchMovies = async (movieName, category) => {
     })
 
     const results = response.data.results
-    return results
-    
+    if(results.length>0) {
+      return results
+    }else{ 
+      return true
+    }
   }catch(error){
     throw error
   }
@@ -38,6 +41,8 @@ export const getMovies = async (category) => {
     throw error
   }
 }
+
+
 
  // Fetching tv function
 export const getTv = async (category) => {

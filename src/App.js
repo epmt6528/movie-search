@@ -7,10 +7,10 @@ import {searchMovies, getMovies, getTv} from './services/api';
 class App extends Component{
   state = {
     movieName: '',
-    searchResults: [],
+    searchResults: false,
     movies: [],
     tv: [],
-    searchCategory: '',
+    searchCategory: 'multi',
     movieCategory: 'now_playing',
     tvCategory: 'airing_today',
     isLoading: false
@@ -46,8 +46,9 @@ class App extends Component{
 
     searchMovies(movieName, searchCategory).then( 
       searchResults => {
+        console.log(searchResults)
       this.setState({
-        searchResults,
+        searchResults
         // isLoading: false
       })
     },
@@ -64,7 +65,6 @@ class App extends Component{
   // Fetching movies function
   fetchMovies = e => {
     const {movieCategory} = this.state
-    // e.preventDefault()
 
     getMovies(movieCategory).then( 
       movies => {
@@ -128,6 +128,7 @@ class App extends Component{
           onCategoryChange={this.handleCategoryChange} 
           onSubmit={this.searchMovies}/>
         <TabContainer
+          movieName={this.state.movieName}
           searchResults={this.state.searchResults}
           movies={this.state.movies}
           tv={this.state.tv}

@@ -27,7 +27,7 @@ const Movies = props => {
             movie => {
               const {id, original_title, original_name, release_date, popularity, overview, poster_path} = movie
               return (
-                <>
+                <div>
                   <MovieCard 
                     key={id}
                     id={id}
@@ -37,7 +37,7 @@ const Movies = props => {
                     overview={overview}
                     poster_path={poster_path}
                   />
-                </>
+                </div>
               )
             }
           )

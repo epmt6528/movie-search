@@ -37,11 +37,6 @@ const SearchForm = props =>{
         variant='outlined'
         label="Search"
         onChange={e => props.onInputChange(e.target.value)}
-        InputLabelProps={{
-          required: true,
-          color: 'primary',
-          shrink: true
-        }}
       /> 
 
       <TextField
