@@ -18,8 +18,11 @@ const useStyles = makeStyles((theme) => ({
 const TVContainer = (props) =>{
   const classes = useStyles();
 
+  const {tvCategory, onTvCategoryChange, fetchTv, tv} = props
+
   return(
     <div className={classes.tabPanel}>
+      {/* Filter Dropdown */}
       <TextField
         select
         className={classes.dropdown}
@@ -27,10 +30,10 @@ const TVContainer = (props) =>{
         margin='normal'
         label="Search Type"
         variant="outlined"
-        defaultValue={props.tvCategory}
+        defaultValue={tvCategory}
         onChange={async e => {
-            await props.onTvCategoryChange(e.target.value)
-            props.fetchTv(e)
+            await onTvCategoryChange(e.target.value)
+            fetchTv(e)
           }
         }
       >
@@ -39,7 +42,9 @@ const TVContainer = (props) =>{
         <MenuItem key='3' value='popular'>popular</MenuItem>
         <MenuItem key='4' value='top_rated'>top_rated</MenuItem>
       </TextField>
-      <Movies searchResults={props.tv}/>
+
+      {/* Fetched TVs */}
+      <Movies searchResults={tv}/>
     </div>
   )
 }

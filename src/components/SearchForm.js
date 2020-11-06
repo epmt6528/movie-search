@@ -1,6 +1,6 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 
+import { makeStyles } from '@material-ui/core/styles';
 import Button  from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -26,9 +26,12 @@ const useStyles = makeStyles((theme) => ({
 
 const SearchForm = props =>{
   const classes = useStyles();
+
+  const {onSubmit, onInputChange, onCategoryChange} = props
   
   return(
-    <form className={classes.wrapper} onSubmit={props.onSubmit}>
+    <form className={classes.wrapper}>
+      {/* Search Input */}
       <TextField 
         className={classes.searchInput}
         margin='normal'
@@ -36,9 +39,10 @@ const SearchForm = props =>{
         type='search'
         variant='outlined'
         label="Search"
-        onChange={e => props.onInputChange(e.target.value)}
+        onChange={e => onInputChange(e.target.value)}
       /> 
 
+      {/* Category Dropdown */}
       <TextField
         className={classes.dropdown}
         select
@@ -46,7 +50,7 @@ const SearchForm = props =>{
         label="Search Type"
         variant="outlined"
         defaultValue="multi"
-        onChange={e => props.onCategoryChange(e.target.value)}
+        onChange={e => onCategoryChange(e.target.value)}
       >
         <MenuItem key='1' value='movie'>movie</MenuItem>
         <MenuItem key='2' value='multi'>multi</MenuItem>
@@ -57,6 +61,7 @@ const SearchForm = props =>{
         color='primary'
         type='submit'
         variant='contained'
+        onClick={onSubmit}
       >
         SEARCH
       </Button>

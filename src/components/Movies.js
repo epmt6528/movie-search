@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {makeStyles} from '@material-ui/core/styles'
-import Grid from '@material-ui/core/Grid'
 import MovieCard from './MovieCard'
 
 const getStyles = makeStyles(theme => ({
@@ -17,17 +16,16 @@ const getStyles = makeStyles(theme => ({
 const Movies = props => {
   const classes = getStyles()
 
-  console.log(props.searchResults)
+  const {searchResults} = props
 
   return (
     <div className="container">
-      <div container className={classes.root} spacing={5}>
+      <div className={classes.root} spacing={5}>
         {
-          props.searchResults.map(
+          searchResults.map(
             movie => {
               const {id, original_title, original_name, release_date, popularity, overview, poster_path} = movie
               return (
-                <div>
                   <MovieCard 
                     key={id}
                     id={id}
@@ -37,7 +35,6 @@ const Movies = props => {
                     overview={overview}
                     poster_path={poster_path}
                   />
-                </div>
               )
             }
           )

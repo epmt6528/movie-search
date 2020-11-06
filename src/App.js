@@ -23,34 +23,34 @@ class App extends Component{
 
   // Search function
   handleInputChange = movieName => {
-    console.log(this.state.movieName)
     this.setState({
       movieName
     })
+
   }
 
   handleCategoryChange = searchCategory => {
-    console.log(this.state.searchCategory)
     this.setState({
       searchCategory
     })
   }
 
-  searchMovies = e => {
+  searchMovies = (e) =>{
     const {movieName, searchCategory} = this.state
+
     e.preventDefault()
 
-    // this.setState({
-    //   isLoading: true
-    // })
+    this.setState({
+      isLoading: true
+    })
 
     searchMovies(movieName, searchCategory).then( 
       searchResults => {
-        console.log(searchResults)
       this.setState({
-        searchResults
-        // isLoading: false
+        searchResults,
+        isLoading: false
       })
+
     },
     error => {
       alert('Error', `Something went wrong! ${error}`)
@@ -63,8 +63,12 @@ class App extends Component{
 
 
   // Fetching movies function
-  fetchMovies = e => {
+  fetchMovies = (e) => {
     const {movieCategory} = this.state
+
+    this.setState({
+      isLoading: true
+    })
 
     getMovies(movieCategory).then( 
       movies => {
@@ -88,8 +92,12 @@ class App extends Component{
 
 
   // Fetching tv function
-  fetchTv = e => {
+  fetchTv = (e) =>{
     const {tvCategory} = this.state
+
+    this.setState({
+      isLoading: true
+    })
 
     getTv(tvCategory).then( 
       tv => {
@@ -116,9 +124,11 @@ class App extends Component{
     const style={
       'margin': 60,
       'display': 'flex',
-      'flex-direction': 'column',
-      'align-items': 'center',
+      'flexDirection': 'column',
+      'alignItems': 'center',
     }
+
+    const {movieName, searchResults, movies, tv, movieCategory, tvCategory, isLoading} = this.state
 
     return (
       <div className='wrapper' style={style}>
@@ -128,13 +138,13 @@ class App extends Component{
           onCategoryChange={this.handleCategoryChange} 
           onSubmit={this.searchMovies}/>
         <TabContainer
-          movieName={this.state.movieName}
-          searchResults={this.state.searchResults}
-          movies={this.state.movies}
-          tv={this.state.tv}
-          movieCategory={this.state.movieCategory}
-          tvCategory={this.state.tvCategory}
-          isLoading={this.state.isLoading}
+          movieName={movieName}
+          searchResults={searchResults}
+          movies={movies}
+          tv={tv}
+          movieCategory={movieCategory}
+          tvCategory={tvCategory}
+          isLoading={isLoading}
           onMovieCategoryChange={this.handleMovieCategoryChange} 
           onTvCategoryChange={this.handleTvCategoryChange} 
           fetchMovies={this.fetchMovies}

@@ -6,6 +6,7 @@ import CardHeader from '@material-ui/core/CardHeader'
 import CardMedia from '@material-ui/core/CardMedia'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
+
 import {BASE_URL_POSTER} from '../config/api_config'
 
 const getStyles = makeStyles(theme => ({
@@ -41,10 +42,10 @@ const getStyles = makeStyles(theme => ({
 
 const MovieCard = props => {
   const classes = getStyles()
-  const {key, id, title, release_date, popularity, overview, poster_path} = props
+  const {title, release_date, popularity, overview, poster_path} = props
 
   return(
-    <Card key={key} className={classes.root}>
+    <Card className={classes.root}>
       <CardMedia className={classes.media} image={`${BASE_URL_POSTER}${poster_path}`}/>
       <CardContent className={classes.content}>
         <CardHeader title={title} className={classes.title}/>

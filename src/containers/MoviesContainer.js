@@ -1,6 +1,6 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 
+import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 
@@ -18,8 +18,11 @@ const useStyles = makeStyles((theme) => ({
 const MoviesContainer = (props) =>{
   const classes = useStyles();
   
+  const {movieCategory, onMovieCategoryChange, fetchMovies, movies} = props
+
   return(
     <div className={classes.tabPanel}>
+      {/* Filter Dropdown */}
       <TextField
         select
         className={classes.dropdown}
@@ -27,10 +30,10 @@ const MoviesContainer = (props) =>{
         margin='normal'
         label="Search Type"
         variant="outlined"
-        defaultValue={props.movieCategory}
+        defaultValue={movieCategory}
         onChange={async e => {
-            await props.onMovieCategoryChange(e.target.value)
-            props.fetchMovies(e)
+            await onMovieCategoryChange(e.target.value)
+            fetchMovies(e)
           }
         }
       >
@@ -40,7 +43,8 @@ const MoviesContainer = (props) =>{
         <MenuItem key='4' value='upcoming'>upcoming</MenuItem>
       </TextField>
 
-      <Movies searchResults={props.movies}/>
+      {/* Fetched Movies */}
+      <Movies searchResults={movies}/>
     </div>
   )
 }

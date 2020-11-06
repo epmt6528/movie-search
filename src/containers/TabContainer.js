@@ -1,17 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
 
-import Movies from '../components/Movies';
-// import Loading from './Loading';
+import Loading from '../components/Loading';
 import MoviesContainer from './MoviesContainer';
 import SearchContainer from './SearchContainer';
 import TVContainer from './TVContainer';
@@ -30,25 +25,13 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box p={3}>
-          <Typography>{children}</Typography>
+          {children}
         </Box>
       )}
     </div>
   );
 }
 
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -70,46 +53,60 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+
 const TabContainer = props => {
   const classes = useStyles();
-  const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  const {fetchMovies, movieCategory, onMovieCategoryChange, movies, movieName, searchResults, tvCategory, onTvCategoryChange, fetchTv, tv, isLoading} = props;
 
   return (
     <div className={classes.wrapper}>
+      {/* Main Menu */}
       <AppBar position="static" color="default">
-        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" indicatorColor="primary" textColor="primary" variant="fullWidth">
-          <Tab label="MOVIES" {...a11yProps(0)} onClick={props.fetchMovies}/>
-          <Tab label="SEARCH RESULTS" {...a11yProps(1)} />
-          <Tab label="TV SHOWS" {...a11yProps(2)} />
+        <Tabs value={value} onChange={handleChange} indicatorColor="primary" textColor="primary" variant="fullWidth">
+          <Tab label="MOVIES" />
+          <Tab label="SEARCH RESULTS" />
+          <Tab label="TV SHOWS" />
         </Tabs>
       </AppBar>
 
+      {/* Movies Tabpanel */}
       <TabPanel value={value} index={0} className={classes.tabPanel}>
-        <MoviesContainer 
-          movieCategory={props.movieCategory} 
-          onMovieCategoryChange={props.onMovieCategoryChange} 
-          fetchMovies={props.fetchMovies} 
-          movies={props.movies} />
+        {
+          isLoading ? <Loading /> :
+          <MoviesContainer 
+            movieCategory={movieCategory} 
+            onMovieCategoryChange={onMovieCategoryChange} 
+            fetchMovies={fetchMovies} 
+            movies={movies} />
+        }
       </TabPanel>
 
+      {/* Search Results Tabpanel */}
       <TabPanel value={value} index={1} className={classes.TabPanel}>
-        <SearchContainer 
-          movieName={props.movieName}
-          searchResults={props.searchResults} />
+        {
+          isLoading ? <Loading /> :
+          <SearchContainer 
+            movieName={movieName}
+            searchResults={searchResults} />
+        }
       </TabPanel>
 
+      {/* TVs Tabpanel */}
       <TabPanel value={value} index={2} className={classes.TabPanel}>
-        <TVContainer 
-          tvCategory={props.tvCategory} 
-          onTvCategoryChange={props.onTvCategoryChange} 
-          fetchTv={props.fetchTv} 
-          tv={props.tv}/>
+        {
+          isLoading ? <Loading /> :
+          <TVContainer 
+            tvCategory={tvCategory} 
+            onTvCategoryChange={onTvCategoryChange} 
+            fetchTv={fetchTv} 
+            tv={tv}/>
+        }
       </TabPanel>
     </div>
   );
